@@ -1,19 +1,29 @@
 version: '3'
+networks:
+  monitoring:
+    driver: bridge
+
 services:
   prometheus:
     image: prom/prometheus
+    hostname: prometheus-host
     volumes:
       - ./prometheus.yml:/etc/prometheus/prometheus.yml
     ports:
       - 9090:9090
+    networks:
+      - monitoring
 
   grafana:
     image: grafana/grafana
+    hostname: grafana-host
     ports:
       - 3000:3000
     environment:
       GF_INSTALL_PLUGINS: grafana-piechart-panel  # You can install additional plugins here
       GF_AUTH_ANONYMOUS_ENABLED: "true"           # Enable anonymous access for simplicity
+    networks:
+      - monitoring
     depends_on:
       - prometheus
 
@@ -21,3 +31,5 @@ services:
     build: ./response_time_exporter  # Build your exporter Docker image
     ports:
       - 8000:8000
+    networks:
+      - monitoring
