@@ -39,11 +39,10 @@ In the case denying specific IP, we can use NACLS.
 - When a developer push and create new pull request, it will trigger Github action and push manifest to S3 bucket.
 - New event in S3 will trigger the CodePipeline and after that, it will be built and deploys application on EKS cluster.
 
-### 1.1.5 Logging
+### 1.1.4 Logging and monitoring
 - Logs(system, EKS, application) will be stored in S3 and filter by Cloudwatch to trigger and then send alert to monitoring system.
+- Besides, we can use third parties monitoring solution such as Datadog, NewRelic,...
 
-### 1.1.4 Monitoring
-- I use Cloudwatch, third parties product(Newrelic/Datadog) for monitoring
 
 ## 1.2 Security
 - Limiting IP and filter vulnerability traffic by WAF, security group and NACLs.
